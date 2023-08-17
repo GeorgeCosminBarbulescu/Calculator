@@ -60,7 +60,6 @@ const handleOperator = function (nextOperator) {
     calculator.firstOperand = result;
 
     addToHistory(`${result}`);
-    // addToHistory(` ${operator} ${inputValue}`);
   }
 
   calculator.waitingForSecondOperand = true;
@@ -96,14 +95,6 @@ const resetCalculator = function () {
   calculator.historyLog = '';
 };
 
-// const inputBackspace = function () {
-//   const { displayValue } = calculator;
-//   calculator.displayValue = displayValue.slice(0, -1);
-//   if (calculator.displayValue === '') {
-//     calculator.displayValue = '0';
-//   }
-// };
-
 const inputBackspace = function () {
   const { displayValue, waitingForSecondOperand } = calculator;
 
@@ -117,16 +108,6 @@ const inputBackspace = function () {
   } else {
     calculator.displayValue = '0';
   }
-
-  // Same as above
-  // if (displayValue.length === 1) {
-  //   calculator.displayValue = '0';
-  // } else {
-  //   calculator.displayValue = displayValue.substring(
-  //     0,
-  //     displayValue.length - 1
-  //   );
-  // }
 };
 
 const updateDisplay = function () {
@@ -141,25 +122,12 @@ keys.addEventListener('click', event => {
   const { target } = event;
   const { value } = target;
 
-  // Exclude specific button classes
-  // if (
-  //   !target.classList.contains('all-clear') &&
-  //   !target.classList.contains('history')
-  // ) {
-  //   addToHistory(value);
-  // }
-
   // if (!target.matches('buttons')) return;
 
   if (value !== 'CE') {
     // Exclude only the "CE" button
     addToHistory(value);
   }
-
-  // Same as when calling "case 'backspace'" for "inputBackspace()"
-  // if (value === 'backspace') {
-  //   inputBackspace();
-  // }
 
   switch (value) {
     case '+':
@@ -184,36 +152,9 @@ keys.addEventListener('click', event => {
     default:
       if (Number.isInteger(parseFloat(value))) {
         inputDigit(value);
-        // addToHistory(value);
       }
       break;
   }
-
-  /*
-  if (!target.matches('button')) {
-    return;
-  };
-
-  if (target.classList.contains('operator')) {
-    handleOperator(target.value);
-    updateDisplay;
-    return;
-  }
-
-  if (target.classList.contains("decimal")) {
-    inputDecimal(target.value);
-    updateDisplay();
-    return;
-  }
-
-  if (target.classList.contains('all-clear')) {
-    resetCalculator();
-    updateDisplay();
-    return;
-  }
-
-  inputDigit(target.value);
-*/
   updateDisplay();
 });
 
